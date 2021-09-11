@@ -1,16 +1,10 @@
 // A single toymc to prove weighted method always overestimate significance, in ref arXiv:1306.5800v1 [astro-ph.HE] 24 Jun 2013
 // Binned / Unbinned Likelihood method is a better way 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
-
 int toymc()
 {
     double bkg_exp[3] = {10000.0, 100.0, 1.0};
-    double sig_exp[3] = {0.1, 0.1, 0.1};
+    double sig_exp[3] = {500.0, 50.0, 5.0};
     double sig[3] = {0.};
     double bkg[3] = {0.};
     double weight[3] = {0.05, 0.5, 5.0};
@@ -24,7 +18,7 @@ int toymc()
     double modi_sign;
     
     
-    TFile *newfile = TFile::Open("toymc_bkg.root", "recreate");
+    TFile *newfile = TFile::Open("toymc.root", "recreate");
     TTree *tree = new TTree("t1","tree");
     tree->Branch("sign_change",&change,"change/D"); 
 
