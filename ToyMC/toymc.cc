@@ -7,13 +7,13 @@
 #include <time.h>
 #include <math.h>
 
-int toymc_significance()
+int toymc()
 {
     double bkg_exp[3] = {10000.0, 100.0, 1.0};
-    double sig_exp[3] = {1, 1, 1};
+    double sig_exp[3] = {0.1, 0.1, 0.1};
     double sig[3] = {0.};
     double bkg[3] = {0.};
-    double weight[3] = {0.01, 0.1, 1.0};
+    double weight[3] = {0.05, 0.5, 5.0};
     
     double sign = 0.;
     double modi_sig = 0.;
@@ -39,9 +39,9 @@ int toymc_significance()
             sig[j] = gRandom->Poisson(sig_exp[j]);
             bkg[j] = gRandom->Poisson(bkg_exp[j]);
             modi_sig += sig[j] * weight[j];
-            modi_bkg += bkg_exp[j] * weight[j] * weight[j];
+            modi_bkg += bkg[j] * weight[j] * weight[j];
         }
-        sign = (sig[0]+sig[1]+sig[2])/ sqrt(bkg[0]+bkg[1]+bkg_exp[2]);
+        sign = (sig[0]+sig[1]+sig[2])/ sqrt(bkg[0]+bkg[1]+bkg[2]);
         modi_sign = modi_sig / sqrt(modi_bkg);
         change = modi_sign - sign;
         // cout << change << endl;
